@@ -1,0 +1,3 @@
+# discord
+Simple uptime tracker
+
