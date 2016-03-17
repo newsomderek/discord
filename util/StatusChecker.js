@@ -37,6 +37,41 @@ module.exports = {
 
     resetComponents: function() {
         componentChecks = [];
+    },
+
+    getStatusReport: function(callback) {
+
+        var total = componentChecks.length;
+        var count = 0;
+
+        var statusReportByGroup = {};
+
+        componentChecks.map(function(check) {
+
+            check.method(function(err, data) {
+
+                if(!(check.group in statusReportByGroup)) {
+                    statusReportByGroup[check.group] = [];
+                }
+
+                statusReportByGroup[check.group].push({
+                    label: check.label,
+                    status: data.status,
+                    message: data.message || null
+                });
+
+                ++count;
+
+                if (count > (total - 1)) {
+                    return callback(statusReportByGroup);
+                }
+
+            });
+
+        });
+
+        return statusReportByGroup;
+
     }
 
 };
