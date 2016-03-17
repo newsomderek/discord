@@ -1,0 +1,12 @@
+
+{
+    "name": "discord-uptime-tracker",
+    "version": "0.1.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+        "dotenv": "^1.2.0"
+    },
+    "devDependencies": {},
+    "author": "Derek Newsom"
+}

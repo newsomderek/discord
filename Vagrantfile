@@ -22,6 +22,12 @@ Vagrant.configure(2) do |config|
     # install gulp
     sudo npm install -g gulp
 
+    sudo apt-get install unzip
+
+    curl https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -o "awscli-bundle.zip"
+    unzip awscli-bundle.zip
+    ./awscli-bundle/install -b ~/bin/aws
+
   SHELL
 
 end

@@ -1,0 +1,34 @@
+{
+  "name": "discord",
+  "version": "1.0.0",
+  "description": "A simple uptime tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newsomderek/discord.git"
+  },
+  "author": "Derek Newsom",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/newsomderek/discord/issues"
+  },
+  "homepage": "https://github.com/newsomderek/discord#readme",
+  "devDependencies": {
+    "aws-sdk": "^2.2.44",
+    "del": "^2.2.0",
+    "fs": "0.0.2",
+    "gulp": "^3.9.1",
+    "gulp-install": "^0.6.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-util": "^3.0.7",
+    "gulp-zip": "^3.2.0",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0",
+    "run-sequence": "^1.1.5"
+  }
+}
