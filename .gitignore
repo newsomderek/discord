@@ -35,3 +35,4 @@ node_modules
 .vagrant
 config.env.production
 dist
+Components.js
