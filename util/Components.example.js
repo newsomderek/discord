@@ -10,8 +10,12 @@ module.exports = {
 
     checks: [
         {
-            label: 'Some test here',
-            group: 'Some Group Here',
+            componentId: 'some_api',
+            componentLabel: 'Some test here',
+            groupId: 'some_group',
+            groupLabel: 'Some Group Here',
+            performanceLimit: 30, // requests taking more than 30 seconds, performance flag is tripped
+
             method: function(callback) {
 
                 // DO API CHECK HERE
