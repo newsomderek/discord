@@ -1,6 +1,7 @@
 var chai = require('chai');
 var StatusChecker = require('./../../dist/util/StatusChecker.js')
 var ComponentsExample = require('./../../dist/util/Components.example.js');
+var Components;
 
 try {
     var Components = require('./../../dist/util/Components.js');
