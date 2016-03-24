@@ -16,6 +16,7 @@ describe('Uptime Utility', function() {
 
     afterEach(function() {
         StatusChecker.resetComponents();
+        StatusChecker.resetGroups();
     });
 
     describe('Status Checking', function() {
@@ -120,6 +121,61 @@ describe('Uptime Utility', function() {
             StatusChecker.resetComponents();
 
             StatusChecker.getComponentChecks().length.should.equal(0);
+
+            done();
+        });
+
+        it('should clear out all component groups from list', function(done) {
+            StatusChecker.addComponentGroup('groupId1', 'groupLabel1');
+            StatusChecker.addComponentGroup('groupId2', 'groupLabel2');
+            StatusChecker.addComponentGroup('groupId3', 'groupLabel3');
+
+            StatusChecker.getComponentGroups().length.should.equal(3);
+
+            StatusChecker.resetGroups();
+
+            StatusChecker.getComponentGroups().length.should.equal(0);
+
+            done();
+        });
+
+        it('should start with no component groups', function(done) {
+            StatusChecker.getComponentGroups().length.should.equal(0);
+            done();
+        });
+
+        it('should add component group when valid parameters are given', function(done) {
+            StatusChecker.addComponentGroup();
+            StatusChecker.getComponentGroups().length.should.equal(0);
+
+            StatusChecker.addComponentGroup('groupId');
+            StatusChecker.getComponentGroups().length.should.equal(0);
+
+            StatusChecker.addComponentGroup('groupId', 'labelId');
+            StatusChecker.getComponentGroups().length.should.equal(1);
+
+            StatusChecker.addComponentGroup('groupId2', 'labelId2');
+            StatusChecker.getComponentGroups().length.should.equal(2);
+
+            done();
+        });
+
+        it('should return properly formatted component groups', function(done) {
+
+            var statusCodes = StatusChecker.getStatusCodes();
+
+            StatusChecker.addComponentGroup('groupId1', 'groupLabel1');
+            StatusChecker.addComponentGroup('groupId2', 'groupLabel2');
+
+            Object.keys(StatusChecker.getComponentGroups()[0]).should.have.length(2);
+
+            StatusChecker.getComponentGroups()[0].groupId.should.equal('groupId1');
+            StatusChecker.getComponentGroups()[0].groupLabel.should.equal('groupLabel1');
+
+            Object.keys(StatusChecker.getComponentGroups()[1]).should.have.length(2);
+
+            StatusChecker.getComponentGroups()[1].groupId.should.equal('groupId2');
+            StatusChecker.getComponentGroups()[1].groupLabel.should.equal('groupLabel2');
 
             done();
         });

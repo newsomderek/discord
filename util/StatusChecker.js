@@ -56,7 +56,11 @@ module.exports = {
         return conmponentGroups;
     },
 
-    addComponentGroups: function(groupId, groupLabel) {
+    resetGroups: function() {
+        conmponentGroups = [];
+    },
+
+    addComponentGroup: function(groupId, groupLabel) {
 
         if(!groupId || !groupLabel) {
             return;
