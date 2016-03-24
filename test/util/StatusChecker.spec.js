@@ -188,10 +188,19 @@ describe('Uptime Utility', function() {
                 StatusChecker.addComponent(check.componentLabel, check.groupId, check.method, check.componentId, check.performanceLimit);
             });
 
+            ComponentsExample.groups.map(function(group) {
+                StatusChecker.addComponentGroup(group.groupId, group.groupLabel);
+            });
+
             StatusChecker.getStatusReport(function(statusReport) {
                 statusReport.status[0].status.should.equal(StatusChecker.getStatusCodes().operational);
                 statusReport.status[0].componentId.should.equal('some_api');
                 expect(statusReport.status[0].message).to.be.null;
+
+                statusReport.groups.length.should.equal(1);
+                statusReport.groups[0].groupId.should.equal('someGroupId');
+                statusReport.groups[0].groupLabel.should.equal('Some Component Group');
+
                 done();
             });
 
@@ -207,6 +216,10 @@ describe('Uptime Utility', function() {
 
                 Components.checks.map(function(check) {
                     StatusChecker.addComponent(check.componentLabel, check.groupId, check.method, check.componentId, check.performanceLimit);
+                });
+
+                Components.groups.map(function(group) {
+                    StatusChecker.addComponentGroup(group.groupId, group.groupLabel);
                 });
 
                 StatusChecker.getStatusReport(function(statusReport) {

@@ -8,6 +8,13 @@ var StatusChecker = require('./StatusChecker.js');
 
 module.exports = {
 
+    groups: [
+        {
+            groupId: 'someGroupId',
+            groupLabel: 'Some Component Group'
+        }
+    ],
+
     checks: [
         {
             componentId: 'some_api',
