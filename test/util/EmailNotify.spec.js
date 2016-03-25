@@ -1,8 +1,12 @@
 var chai = require('chai');
-var EmailNotify = require('./../../dist/util/EmailNotify.js')
 
 var expect = chai.expect;
 chai.should();
+
+var EmailNotify = require('./../../dist/util/EmailNotify.js');
+var StatusChecker = require('./../../dist/util/StatusChecker.js');
+var ComponentsExample = require('./../../dist/util/Components.example.js');
+
 
 describe('Email Utility', function() {
 
@@ -12,7 +16,7 @@ describe('Email Utility', function() {
 
     describe('Email Notify', function() {
 
-        it('should get list of status codes', function(done) {
+        it('should send a test email', function(done) {
             this.timeout(30000);
 
             var emailNotify = new EmailNotify();
@@ -35,7 +39,27 @@ describe('Email Utility', function() {
         });
 
         it('should wordify a standard Discord report output', function(done) {
-            done();
+            // extend timeout in milliseconds
+            this.timeout(4000);
+
+            ComponentsExample.checks.map(function(check) {
+                StatusChecker.addComponent(check.componentLabel, check.groupId, check.method, check.componentId, check.performanceLimit);
+            });
+
+            ComponentsExample.groups.map(function(group) {
+                StatusChecker.addComponentGroup(group.groupId, group.groupLabel);
+            });
+
+            var emailNotify = new EmailNotify();
+
+            StatusChecker.getStatusReport(function(statusReport) {
+
+                var wordified = emailNotify.wordifyReport(statusReport);
+
+                done();
+            });
+
+
         });
 
     });

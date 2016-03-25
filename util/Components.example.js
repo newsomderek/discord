@@ -19,8 +19,7 @@ module.exports = {
         {
             componentId: 'some_api',
             componentLabel: 'Some test here',
-            groupId: 'some_group',
-            groupLabel: 'Some Group Here',
+            groupId: 'someGroupId',
             performanceLimit: 30, // requests taking more than 30 seconds, performance flag is tripped
 
             method: function(callback) {

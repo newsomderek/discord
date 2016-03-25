@@ -1,4 +1,6 @@
 
+var format = require('string-format');
+
 var StatusChecker = require('./StatusChecker.js');
 
 // load aws sdk
@@ -9,7 +11,27 @@ var aws = require('aws-sdk');
 var EmailNotify = function() {};
 
 EmailNotify.prototype.wordifyReport = function(statusReport) {
-    return '';
+    var wordified = '';
+
+    var statusesByGroupId = {};
+
+    statusReport.status.map(function(status) {
+        if(!(status.groupId in statusesByGroupId)) {
+            statusesByGroupId[ status.groupId ] = [];
+        }
+
+        statusesByGroupId[ status.groupId ].push(status);
+    });
+
+    statusReport.groups.map(function(group) {
+        wordified += format('{0}\n\n', group.groupLabel.toUpperCase());
+
+        statusesByGroupId[ group.groupId ].map(function(status) {
+            wordified += format('\t{0}: {1}\n', status.componentLabel, status.status);
+        });
+    });
+
+    return wordified;
 };
 
 EmailNotify.prototype.send = function(fromEmail, toEmails, subject, bodyText, bodyHtml, callback) {

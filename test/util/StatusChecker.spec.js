@@ -1,5 +1,5 @@
 var chai = require('chai');
-var StatusChecker = require('./../../dist/util/StatusChecker.js')
+var StatusChecker = require('./../../dist/util/StatusChecker.js');
 var ComponentsExample = require('./../../dist/util/Components.example.js');
 var Components;
 
@@ -223,7 +223,6 @@ describe('Uptime Utility', function() {
                 });
 
                 StatusChecker.getStatusReport(function(statusReport) {
-                    console.log(JSON.stringify(statusReport));
                     done();
                 });
 
