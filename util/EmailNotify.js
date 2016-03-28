@@ -11,9 +11,9 @@ var aws = require('aws-sdk');
 var EmailNotify = function() {};
 
 EmailNotify.prototype.wordifyReport = function(statusReport) {
-    var wordified = '';
-
     var statusesByGroupId = {};
+    var textWordified = '';
+    var htmlWordified = '';
 
     statusReport.status.map(function(status) {
         if(!(status.groupId in statusesByGroupId)) {
@@ -24,14 +24,27 @@ EmailNotify.prototype.wordifyReport = function(statusReport) {
     });
 
     statusReport.groups.map(function(group) {
-        wordified += format('{0}\n\n', group.groupLabel.toUpperCase());
+        htmlWordified += format('<b>{0}</b><br /><br />', group.groupLabel.toUpperCase());
+        textWordified += format('{0}\n\n', group.groupLabel.toUpperCase());
 
         statusesByGroupId[ group.groupId ].map(function(status) {
-            wordified += format('\t{0}: {1}\n', status.componentLabel, status.status);
+            htmlWordified += format('<div style="padding-left: 25px"><b>{0}</b>: {1}<div><br />', status.componentLabel, StatusChecker.getStatusCodeLabel(status.status));
+            textWordified += format('\t{0}: {1}\n', status.componentLabel, StatusChecker.getStatusCodeLabel(status.status));
+
+            if(status.message) {
+                htmlWordified += format('<div style="padding-left: 25px">{0}<div><br /><br />', status.message);
+                textWordified += format('\t{0}\n\n', status.componentLabel, status.message);
+            } else {
+                htmlWordified += '<br />';
+                textWordified += '\n';
+            }
         });
     });
 
-    return wordified;
+    return {
+        text: textWordified,
+        html: htmlWordified
+    };
 };
 
 EmailNotify.prototype.send = function(fromEmail, toEmails, subject, bodyText, bodyHtml, callback) {
