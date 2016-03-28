@@ -37,6 +37,19 @@ describe('Uptime Utility', function() {
 
         });
 
+        it('should get status label by code', function(done) {
+            var statusCodes = StatusChecker.getStatusCodes();
+
+            StatusChecker.getStatusCodeLabel(statusCodes.operational).should.equal('Operational');
+            StatusChecker.getStatusCodeLabel(statusCodes.performanceIssues).should.equal('Performance Issues');
+            StatusChecker.getStatusCodeLabel(statusCodes.partialOutage).should.equal('Partial Outage');
+            StatusChecker.getStatusCodeLabel(statusCodes.majorOutage).should.equal('Major Outage');
+            StatusChecker.getStatusCodeLabel(statusCodes.other).should.equal('Other Issue');
+            StatusChecker.getStatusCodeLabel(1337).should.equal('Unknown Issue');
+
+            done();
+        });
+
         it('should start with no component checks', function(done) {
             StatusChecker.getComponentChecks().length.should.equal(0);
             done();

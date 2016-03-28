@@ -30,6 +30,28 @@ module.exports = {
         return statusCodes;
     },
 
+    getStatusCodeLabel: function(code) {
+        switch(code) {
+            case statusCodes.operational:
+                return 'Operational';
+
+            case statusCodes.performanceIssues:
+                return 'Performance Issues';
+
+            case statusCodes.partialOutage:
+                return 'Partial Outage';
+
+            case statusCodes.majorOutage:
+                return 'Major Outage';
+
+            case statusCodes.other:
+                return 'Other Issue';
+
+            default:
+                return 'Unknown Issue';
+        }
+    },
+
     getComponentChecks: function() {
         return componentChecks;
     },
